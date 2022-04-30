@@ -1,4 +1,4 @@
-export const secrets = {
+export const firebase = {
   API_KEY: process.env.NEXT_PUBLIC_API_KEY,
   AUTH_DOMAIN: process.env.NEXT_PUBLIC_API_DOMAIN,
   PROJECT_ID: process.env.NEXT_PUBLIC_PROJECT_ID,
