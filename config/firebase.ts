@@ -1,8 +1,7 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/app'
-import 'firebase/compat/auth'
-import 'firebase/compat/firestore'
-import 'firebase/compat/storage'
+import { initializeApp, getApps } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+// import 'firebase/firestore'
+// import 'firebase/storage'
 import { firebase as _ } from './secrets'
 
 export const firebaseConfig = {
@@ -14,22 +13,8 @@ export const firebaseConfig = {
   appId: _.APP_ID,
 }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig)
+if (!getApps().length) {
+  initializeApp(firebaseConfig)
 }
 
-// TODO: check this
-const providers = {
-  google: new firebase.auth.GoogleAuthProvider(),
-};
-// end
-
-const app = firebase.app()
-const auth = firebase.auth()
-const db = firebase.firestore()
-const now = firebase.firestore.Timestamp.now()
-const storage = firebase.storage()
-
-export { app, auth, db, now, providers, storage }
-
-console.log(app.name ? 'Firebase Mode Activated!' : 'Firebase not working :(');
+export const auth = getAuth()

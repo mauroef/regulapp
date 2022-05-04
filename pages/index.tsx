@@ -1,30 +1,11 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-
-// TODO: componentize
-import { auth, providers } from '../config/firebase'
-
-const signUp = () => {
-  return auth
-    .signInWithPopup(providers.google)
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((error) => {
-      return { error }
-    })
-}
-
-const onSubmit = () => {
-  return signUp().then((user) => {
-    console.log({user})
-  })
-}
-//
+import { useAuth } from '../hooks/useAuth'
 
 const Home: NextPage = () => {
+  const [auth, signOut] = useAuth()
+
   return (
     <div className={styles.container}>
       <Head>
@@ -34,12 +15,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <button onClick={onSubmit}>Iniciar sesión con Google</button>
+        Bievenido {auth.displayName}
+        <button onClick={signOut}>logout</button>
       </main>
 
-      <footer className={styles.footer}>
-        FOOTER
-      </footer>
+      <footer className={styles.footer}>FOOTER</footer>
     </div>
   )
 }
