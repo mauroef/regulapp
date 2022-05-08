@@ -1,10 +1,27 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { Timestamp } from 'firebase/firestore'
 import { useAuth } from '../hooks/useAuth'
+import { Status } from '../types/db'
+import api from '../api/db'
+
+import {
+  /*onSnapshot, */ collection,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore'
 
 const Home: NextPage = () => {
   const [auth, signOut] = useAuth()
+  const handleAdd = () => {
+    api.add(auth.uid, {
+      name: 'sarasa',
+      status: Status.IN_EVALUATION,
+      createdAt:  Timestamp.now().toDate(),
+    })
+  }
 
   return (
     <div className={styles.container}>
@@ -17,11 +34,16 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         Bievenido {auth.displayName}
         <button onClick={signOut}>logout</button>
+        <button onClick={handleAdd}>add</button>
       </main>
 
       <footer className={styles.footer}>FOOTER</footer>
     </div>
   )
 }
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+
+// }
 
 export default Home

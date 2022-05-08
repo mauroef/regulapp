@@ -1,7 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-// import 'firebase/firestore'
-// import 'firebase/storage'
+import { getFirestore } from 'firebase/firestore'
 import { firebase as _ } from './secrets'
 
 export const firebaseConfig = {
@@ -18,3 +17,4 @@ if (!getApps().length) {
 }
 
 export const auth = getAuth()
+export const database = getFirestore()
