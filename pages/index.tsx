@@ -5,9 +5,19 @@ import api from '../api/db'
 import { Timestamp } from 'firebase/firestore'
 import { useAuth } from '../hooks/useAuth'
 import { Status } from '../types/db'
+import { User } from '../types/auth'
+import Nav from '../components/nav'
 
 const Home: NextPage = () => {
   const [auth, signOut] = useAuth()
+
+  const data: User = {
+    id: auth.uid,
+    email: auth.email,
+    name: auth.displayName,
+    image: auth.photoURL,
+    signOut,
+  }
 
   const handleAdd = () => {
     api.add(auth.uid, {
@@ -25,6 +35,7 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
+      <Nav data={data} />
       <main className={styles.main}>
         Bievenido {auth.displayName}
         <button onClick={signOut}>logout</button>

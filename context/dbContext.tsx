@@ -24,7 +24,6 @@ const RecordProvider = ({ children }: { children: ReactNode }) => {
       setRecords(records)
       setStatus(Status.RESOLVED)
     })
-
     return () => setStatus(Status.PENDING)
   }, [auth.uid])
 
