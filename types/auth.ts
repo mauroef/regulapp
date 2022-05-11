@@ -1,4 +1,4 @@
 export enum Status {
-  Init = 'init',
-  Restored = 'Restored',
+  PENDING = 'Pending',
+  RESOLVED = 'Resolved',
 }

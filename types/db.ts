@@ -10,6 +10,7 @@ export enum Status {
 }
 
 export interface Record {
+  id?: string
   name: string
   status: Status
   createdAt: Date

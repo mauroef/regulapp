@@ -1,25 +1,19 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import api from '../api/db'
 import { Timestamp } from 'firebase/firestore'
 import { useAuth } from '../hooks/useAuth'
 import { Status } from '../types/db'
-import api from '../api/db'
-
-import {
-  /*onSnapshot, */ collection,
-  query,
-  where,
-  getDocs,
-} from 'firebase/firestore'
 
 const Home: NextPage = () => {
   const [auth, signOut] = useAuth()
+
   const handleAdd = () => {
     api.add(auth.uid, {
       name: 'sarasa',
       status: Status.IN_EVALUATION,
-      createdAt:  Timestamp.now().toDate(),
+      createdAt: Timestamp.now().toDate(),
     })
   }
 
@@ -41,9 +35,5 @@ const Home: NextPage = () => {
     </div>
   )
 }
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-
-// }
 
 export default Home

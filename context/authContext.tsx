@@ -23,7 +23,7 @@ export const useAuth = () => useContext(AuthContext)
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
-  const [status, setStatus] = useState<Status>(Status.Init)
+  const [status, setStatus] = useState<Status>(Status.PENDING)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -31,7 +31,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(user)
       } else {
         setUser(null)
-        setStatus(Status.Restored)
+        setStatus(Status.RESOLVED)
       }
     })
   }, [])

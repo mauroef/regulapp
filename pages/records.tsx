@@ -1,28 +1,29 @@
-import React from 'react'
-
+import { NextPage } from 'next'
+import { Timestamp } from 'firebase/firestore'
 import { useRecords } from '../hooks/useDatabase'
+import { Status } from '../types/db'
 
-const RecordsScreen = () => {
-  const [records, add] = useRecords()
+const RecordsScreen: NextPage = () => {
+  const [records, add, remove] = useRecords()
 
-  function handleAdd(e) {
-    e.preventDefault()
-
-    add(e.target.text.value)
-
-    e.target.text.value = ''
+  const handleAdd = () => {
+    add({
+      name: 'sarasa',
+      status: Status.IN_EVALUATION,
+      createdAt: Timestamp.now().toDate(),
+    })
   }
 
   return (
     <div>
-      <form onSubmit={handleAdd}>
-        <input name='text' type='text' />
-        <button type='submit'>Agregar</button>
-      </form>
+      <input name='text' type='text' />
+      <button onClick={handleAdd}>Agregar</button>
       <ul>
-        {records.map(({ id, text, remove }) => (
+        {records.map(({ id, name, status, createdAt, remove }) => (
           <li key={id}>
-            <span>{text}</span>
+            <span>{name}</span>
+            <span>{status}</span>
+            <p>{createdAt.toLocaleString()}</p>
             <button onClick={remove}>X</button>
           </li>
         ))}

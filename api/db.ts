@@ -1,21 +1,16 @@
 import {
-  /*onSnapshot, */ collection,
+  collection,
   query,
-  where,
-  getDocs,
-  addDoc,
-  setDoc,
   doc,
+  addDoc,
   deleteDoc,
-  onSnapshot
+  onSnapshot,
 } from 'firebase/firestore'
 import { database } from '../config/firebase'
-import { useAuth } from '../hooks/useAuth'
-import { Record } from '../types/db'
+import { Record, Status } from '../types/db'
 
 const api = {
   add: async (userId: string, record: Record) => {
-    console.log({ userId, record })
     const recordsCollection = await collection(
       database,
       'users',
@@ -25,15 +20,31 @@ const api = {
     addDoc(recordsCollection, record)
   },
   remove: async (userId: string, recordId: string) => {
-    console.log('borrado', { userId, recordId })
-    await deleteDoc(doc(database, 'records', recordId))
+    const recordsCollection = await collection(
+      database,
+      'users',
+      userId,
+      'records'
+    )
+    deleteDoc(doc(recordsCollection, recordId))
   },
-  onChange: async (userId, callback) => {
-    const unsub = onSnapshot(doc(database, "cities", "SF"), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      console.log(source, " data: ", doc.data());
-    });
-  }
+  onChange: async (userId: string, callback: Function) => {
+    const q = query(collection(database, 'users', userId, 'records'))
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const records: Record[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        name: doc.data().name,
+        status: Status.IN_EVALUATION,
+        createdAt: new Date(doc.data().createdAt.seconds * 1000),
+      }))
+
+      callback(records)
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  },
 }
 
 export default api
