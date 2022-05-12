@@ -1,26 +1,31 @@
 import { FC } from 'react'
 import Image from 'next/image'
+import { useAuth } from '../../hooks/useAuth'
 import { User } from '../../types/auth'
 
-interface NavProps {
-  data: User
-}
+const Nav: FC = () => {
+  const [auth, signOut] = useAuth()
 
-const Nav: FC<NavProps> = ({ data }) => {
-  const { name, image, signOut } = data
+  const data: User = {
+    id: auth.uid,
+    email: auth.email,
+    name: auth.displayName,
+    image: auth.photoURL,
+    signOut,
+  }
 
   return (
     <nav>
       <span>RegulApp</span>
       <Image
-        loader={() => image + '?w=30'}
-        src={image}
+        loader={() => data.image + '?w=30'}
+        src={data.image}
         width={30}
         height={30}
         alt='profile'
         referrerPolicy={'no-referrer'}
       />
-      <span>{name}</span>
+      <span>{data.name}</span>
       <button
         onClick={() => {
           signOut()

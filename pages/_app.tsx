@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Provider as AuthProvider } from '../context/authContext'
 import { Provider as DatabaseProvider } from '../context/dbContext'

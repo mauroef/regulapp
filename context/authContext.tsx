@@ -34,7 +34,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setStatus(Status.RESOLVED)
       }
     })
-    console.log('cosas auth')
   }, [])
 
   const signIn = () => {
