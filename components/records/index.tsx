@@ -3,8 +3,9 @@ import { Timestamp } from 'firebase/firestore'
 import { useRecords } from '../../hooks/useDatabase'
 import { Status } from '../../types/db'
 import Seo from '../seo'
+import RecordsTable from './table'
 
-const RecordsList: NextPage = () => {
+const Records: NextPage = () => {
   const [records, add] = useRecords()
 
   const handleAdd = () => {
@@ -22,22 +23,13 @@ const RecordsList: NextPage = () => {
         description='Muestra un listado de los registros generado en el sistema'
         image=''
       />
-      <div>
+      <section>
         <input name='text' type='text' />
         <button onClick={handleAdd}>Agregar</button>
-        <ul>
-          {records.map(({ id, name, status, createdAt, remove }) => (
-            <li key={id}>
-              <span>{name}</span>
-              <span>{status}</span>
-              <p>{createdAt.toLocaleString()}</p>
-              <button onClick={remove}>X</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+        <RecordsTable records={records} />
+      </section>
     </>
   )
 }
 
-export default RecordsList
+export default Records

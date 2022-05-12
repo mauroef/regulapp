@@ -1,3 +1,5 @@
+import { MouseEventHandler } from 'react'
+
 export enum Status {
   PROJECT_RECORD = 'Proyecto de registro',
   IN_EVALUATION = 'En evaluación',
@@ -14,4 +16,5 @@ export interface Record {
   name: string
   status: Status
   createdAt: Date
+  remove: MouseEventHandler<HTMLButtonElement>
 }
