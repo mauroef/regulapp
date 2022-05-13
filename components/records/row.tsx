@@ -25,8 +25,6 @@ const RecordRow: FC<RecordRowProps> = ({ name, status, createdAt, remove }) => {
           bg='red.500'
           _hover={{
             bg: 'red.400',
-            transform: 'scale(1.2)',
-            transition: 'transform 0.5s ease',
           }}
           _active={{
             bg: 'red.400',

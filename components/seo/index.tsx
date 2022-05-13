@@ -21,7 +21,7 @@ const Seo: FC<SeoProps> = ({ title = '', description = '', image = '' }) => {
       {image !== '' ?? <meta name='og:image' content={image} />}
       <meta name='og:type' content={'website'} />
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      <link rel='icon' href='/favicon.ico' />f
+      <link rel='icon' href='/favicon.ico' />
     </Head>
   )
 }

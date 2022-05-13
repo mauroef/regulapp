@@ -16,5 +16,5 @@ export interface Record {
   name: string
   status: Status
   createdAt: Date
-  remove: MouseEventHandler<HTMLButtonElement>
+  remove?: MouseEventHandler<HTMLButtonElement>
 }
