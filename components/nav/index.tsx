@@ -48,7 +48,7 @@ const Nav: FC = () => {
       <Divider
         orientation='vertical'
         h='3rem'
-        borderColor='rgba(0, 0, 0, 0.1)'
+        borderColor='gray.400'
       />
       <Button
         onClick={() => {

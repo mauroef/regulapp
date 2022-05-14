@@ -3,7 +3,8 @@ const theme = {
     global: {
       body: {
         bg: 'gray.100',
-        bgImage: 'url(./background.svg)',
+        //bgImage: 'url(./background.svg)',
+        bgImage: 'url(./background-optimized.jpeg)',
         bgRepeat: 'no-repeat',
         bgSize: 'cover',
         bgPosition: 'center',
