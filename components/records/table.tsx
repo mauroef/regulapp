@@ -9,7 +9,7 @@ interface RecordsTableProps {
 
 const RecordsTable: FC<RecordsTableProps> = ({ records }) => {
   return (
-    <TableContainer>
+    <TableContainer bgColor={'gray.50'} w={'100%'} borderBottomRadius={'1rem'} mt={'0 !important'}>
       <Table variant={'simple'}>
         <Thead>
           <Tr>

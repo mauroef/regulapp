@@ -1,8 +1,10 @@
 import { NextPage } from 'next'
+import { StackDivider, VStack } from '@chakra-ui/react'
 import { Timestamp } from 'firebase/firestore'
 import { useRecords } from '../../hooks/useDatabase'
 import { Status } from '../../types/db'
 import Seo from '../seo'
+import RecordsHeader from './header'
 import RecordsTable from './table'
 
 const Records: NextPage = () => {
@@ -23,11 +25,14 @@ const Records: NextPage = () => {
         description='Muestra un listado de los registros generado en el sistema'
         image=''
       />
-      <section>
-        <input name='text' type='text' />
-        <button onClick={handleAdd}>Agregar</button>
+      <VStack
+        as={'section'}
+        spacing={0}
+        divider={<StackDivider borderColor='gray.300' />}
+      >
+        <RecordsHeader add={handleAdd} />
         <RecordsTable records={records} />
-      </section>
+      </VStack>
     </>
   )
 }
