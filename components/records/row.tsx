@@ -21,17 +21,7 @@ const RecordRow: FC<RecordRowProps> = ({ name, status, createdAt, remove }) => {
       <Td>
         <IconButton
           onClick={remove}
-          color='white'
-          bg='red.500'
-          _hover={{
-            bg: 'red.400',
-          }}
-          _active={{
-            bg: 'red.400',
-          }}
-          _focus={{
-            boxShadow: '0 0 0 3px #E53E3E',
-          }}
+          colorScheme={'red'}
           aria-label='Remove'
           icon={<DeleteIcon />}
         />

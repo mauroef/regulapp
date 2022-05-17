@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Button,
   Center,
   Heading,
@@ -17,7 +18,7 @@ const Login = ({ signIn, status }) => (
       description='Iniciar sesión para ingresar al sistema de registros'
       image=''
     />
-    <main>
+    <Box as={'main'} pt={'1rem'}>
       {/* TODO: include spinner on waiting */}
       {status === Status.PENDING && (
         <span>Intentando de restaurar sesión...</span>
@@ -56,7 +57,7 @@ const Login = ({ signIn, status }) => (
           </Center>
         </VStack>
       )}
-    </main>
+    </Box>
   </>
 )
 

@@ -30,6 +30,8 @@ const Nav: FC = () => {
       alignItems='center'
       gap='2'
       p={'.5rem 1rem'}
+      border={'0.5px solid #F4F5F5'}
+      boxShadow={'0 .25rem .25rem rgba(0, 0, 0, .25)'}
     >
       <Box p='2'>
         <Heading size='md'>RegulApp</Heading>
@@ -45,11 +47,7 @@ const Nav: FC = () => {
         style={{ borderRadius: '50%' }}
       />
       <Text>Hola, {data.name}</Text>
-      <Divider
-        orientation='vertical'
-        h='3rem'
-        borderColor='gray.400'
-      />
+      <Divider orientation='vertical' h='3rem' borderColor='gray.400' />
       <Button
         onClick={() => {
           signOut()
