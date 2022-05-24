@@ -20,6 +20,7 @@ const theme = {
           zIndex: 1,
         },
         main: {
+          minH: 'calc(100vh - 11.5rem)',
           minW: '20rem',
           m: '7rem 1rem 0 1rem',
           '@media (min-width: 40rem)': {
