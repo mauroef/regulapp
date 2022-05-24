@@ -9,6 +9,7 @@ import {
   Spacer,
 } from '@chakra-ui/react'
 import { FC, MouseEventHandler } from 'react'
+import RecordsModal from './modal'
 
 interface RecordsHeaderProps {
   add: MouseEventHandler
@@ -34,7 +35,10 @@ const RecordsHeader: FC<RecordsHeaderProps> = ({ add }) => {
         </InputGroup>
       </Box>
       <Box>
-        <Button onClick={add} colorScheme={'green'}>Agregar</Button>
+        {/* <Button onClick={add} colorScheme={'green'}>
+          Agregar
+        </Button> */}
+        <RecordsModal></RecordsModal>
       </Box>
     </Flex>
   )
