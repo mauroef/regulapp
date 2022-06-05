@@ -12,9 +12,11 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
+  Text,
   Input,
   Select,
+  Textarea,
+  HStack,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { FaPlus, FaSave } from 'react-icons/fa'
@@ -23,9 +25,23 @@ import { Status } from '../../types/db'
 const validate = (values) => {
   const errors = {}
   if (!values.name) {
-    errors.name = 'Campo requerido'
+    errors.name = 'Campo Nombre requerido.'
   } else if (values.name.length > 15) {
-    errors.name = 'Máximo permitido de 15 letras.'
+    errors.name = 'Máximo permitido de 15 caracteres.'
+  } else if (values.name.length < 4) {
+    errors.name = 'Mínimo permitido de 4 caracteres.'
+  }
+  if (!values.status) {
+    errors.status = 'Campo Estado requerido.'
+  }
+  if (!values.warningDate) {
+    errors.warningDate = 'Campo Alerta requerido.'
+  }
+  if (!values.expirationDate) {
+    errors.expirationDate = 'Campo Vencimiento requerido.'
+  }
+  if (values.additionalInformation.length > 50) {
+    errors.additionalInformation = 'Máximo permitido de 50 caracteres.'
   }
 
   console.log({ errors })
@@ -39,9 +55,10 @@ const RecordsModal: FC = () => {
   const formik = useFormik({
     initialValues: {
       name: '',
-      // status: '',
-      // dateOne: '',
-      // dateTwo: '',
+      status: '',
+      warningDate: '',
+      expirationDate: '',
+      additionalInformation: '',
     },
     validate,
     onSubmit: (values) => {
@@ -88,37 +105,76 @@ const RecordsModal: FC = () => {
                   <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
                 ) : null}
               </FormControl>
-              <FormControl mt={'1rem'}>
+              <FormControl mt={'1rem'} isInvalid={formik.errors.status}>
                 <FormLabel htmlFor='status'>Estado</FormLabel>
                 <Select
                   id='status'
-                  placeholder='Estado del registro'
-                  // onChange={formik.handleChange}
-                  // value={formik.values.status}
+                  placeholder='Seleccione...'
+                  onChange={formik.handleChange}
+                  value={formik.values.status}
+                  isInvalid={formik.errors.status}
                 >
                   <option>{Status.PROJECT_RECORD}</option>
                   <option>{Status.IN_EVALUATION}</option>
                 </Select>
+                {formik.errors.status ? (
+                  <FormErrorMessage>{formik.errors.status}</FormErrorMessage>
+                ) : null}
               </FormControl>
-              <FormControl mt={'1rem'}>
-                <FormLabel htmlFor='dateOne'>Fecha 1</FormLabel>
-                <Input
-                  id='dateOne'
-                  type='datetime-local'
-                  // onChange={formik.handleChange}
-                  // value={formik.values.dateOne}
+              <HStack mt={'1rem'}>
+                <FormControl isInvalid={formik.errors.warningDate}>
+                  <FormLabel htmlFor='warningDate'>Aviso</FormLabel>
+                  <Input
+                    id='warningDate'
+                    type='date'
+                    onChange={formik.handleChange}
+                    value={formik.values.warningDate}
+                    isInvalid={formik.errors.warningDate}
+                  />
+                  {formik.errors.warningDate ? (
+                    <FormErrorMessage>
+                      {formik.errors.warningDate}
+                    </FormErrorMessage>
+                  ) : null}
+                </FormControl>
+                <FormControl
+                  mt={'1rem'}
+                  isInvalid={formik.errors.expirationDate}
+                >
+                  <FormLabel htmlFor='expirationDate'>Vencimiento</FormLabel>
+                  <Input
+                    id='expirationDate'
+                    type='date'
+                    onChange={formik.handleChange}
+                    value={formik.values.expirationDate}
+                    isInvalid={formik.errors.expirationDate}
+                  />
+                  {formik.errors.expirationDate ? (
+                    <FormErrorMessage>
+                      {formik.errors.expirationDate}
+                    </FormErrorMessage>
+                  ) : null}
+                </FormControl>
+              </HStack>
+              <FormControl mt={'1rem'} isInvalid={formik.errors.aditionalInformation}>
+                <FormLabel htmlFor='additionalInformation'>
+                  Información adicional
+                </FormLabel>
+                <Textarea
+                  onChange={formik.handleChange}
+                  value={formik.values.aditionalInformation}
+                  id='additionalInformation'
+                  placeholder='Información adicional...'
+                  size='sm'
                 />
-              </FormControl>
-              <FormControl mt={'1rem'}>
-                <FormLabel htmlFor='dateOne'>Fecha 2</FormLabel>
-                <Input
-                  id='dateTwo'
-                  type='datetime-local'
-                  // onChange={formik.handleChange}
-                  // value={formik.values.dateTwo}
-                />
+                {formik.errors.aditionalInformation ? (
+                  <FormErrorMessage>
+                    {formik.errors.aditionalInformation}
+                  </FormErrorMessage>
+                ) : null}
               </FormControl>
             </form>
+            //FIXME: validacion textarea y side effects
           </ModalBody>
           <ModalFooter>
             <Button
